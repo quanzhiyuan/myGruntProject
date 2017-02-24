@@ -29,11 +29,6 @@ module.exports = function (grunt) {
   var generateCommonJSModule = require('./grunt/bs-commonjs-generator.js');        // 使文件已commonjs规范加载
   var configBridge = grunt.file.readJSON('./grunt/configBridge.json', { encoding: 'utf8' }); // 定义grunt 的一些参数
 
-  Object.keys(configBridge.paths).forEach(function (key) {
-    configBridge.paths[key].forEach(function (val, i, arr) {
-      arr[i] = path.join('./docs/assets', val);
-    });
-  });
 
   // Project configuration.
   grunt.initConfig({
@@ -41,9 +36,7 @@ module.exports = function (grunt) {
     // Metadata.
     pkg: grunt.file.readJSON('package.json'),
     banner: '/*!\n' +
-            ' * Bootstrap v<%= pkg.version %> (<%= pkg.homepage %>)\n' +
-            ' * Copyright 2011-<%= grunt.template.today("yyyy") %> <%= pkg.author %>\n' +
-            ' * Licensed under the <%= pkg.license %> license\n' +
+            ' * kingdee-UED quanzhiyuan\n' +
             ' */\n',
     jqueryCheck: configBridge.config.jqueryCheck.join('\n'),
     jqueryVersionCheck: configBridge.config.jqueryVersionCheck.join('\n'),
@@ -67,9 +60,12 @@ module.exports = function (grunt) {
       core: {
         src: 'js/*.js'
       },
+        project :{
+        src :'project/js/*.js'
+       },
       test: {
         options: {
-          jshintrc: 'js/tests/unit/.jshintrc'
+          jshintrc: 'project/js/tests/unit/.jshintrc'
         },
         src: 'js/tests/unit/*.js'
       },
@@ -77,119 +73,15 @@ module.exports = function (grunt) {
         src: ['docs/assets/js/src/*.js', 'docs/assets/js/*.js', '!docs/assets/js/*.min.js']
       }
     },
-
-    jscs: {                            // 代码风格检查工具
-      options: {
-        config: 'js/.jscsrc'
-      },
-      grunt: {
-        src: '<%= jshint.grunt.src %>'
-      },
-      core: {
-        src: '<%= jshint.core.src %>'
-      },
-      test: {
-        src: '<%= jshint.test.src %>'
-      },
-      assets: {
-        options: {
-          requireCamelCaseOrUpperCaseIdentifiers: null
-        },
-        src: '<%= jshint.assets.src %>'
-      }
-    },
-
-    concat: {                 // 拼接js
-      options: {
-        banner: '<%= banner %>\n<%= jqueryCheck %>\n<%= jqueryVersionCheck %>',
-        stripBanners: false
-      },
-      bootstrap: {
-        src: [
-          'js/transition.js'
-        ],
-        dest: 'dist/js/<%= pkg.name %>.js'
-      }
-    },
-
-    // uglify: {               // 压缩文件
-    //   options: {
-    //     compress: {
-    //       warnings: false
-    //     },
-    //     mangle: true,
-    //     preserveComments: /^!|@preserve|@license|@cc_on/i
-    //   },
-    //   core: {
-    //     src: '<%= concat.bootstrap.dest %>',
-    //     dest: 'dist/js/<%= pkg.name %>.min.js'
-    //   },
-    //   customize: {
-    //     src: configBridge.paths.customizerJs,
-    //     dest: 'docs/assets/js/customize.min.js'
-    //   },
-    //   docsJs: {
-    //     src: configBridge.paths.docsJs,
-    //     dest: 'docs/assets/js/docs.min.js'
-    //   }
-    // },
-
-    qunit: {                           // 单元测试
-      options: {
-        inject: 'js/tests/unit/phantom.js'
-      },
-      files: 'js/tests/index.html'
-    },
-
-    less: {
-      compileCore: {
-        options: {
-          strictMath: true,
-          sourceMap: true,
-          outputSourceFiles: true,
-          sourceMapURL: '<%= pkg.name %>.css.map',
-          sourceMapFilename: 'dist/css/<%= pkg.name %>.css.map'
-        },
-        src: 'less/bootstrap.less',
-        dest: 'dist/css/<%= pkg.name %>.css'
-      },
-      compileTheme: {
-        options: {
-          strictMath: true,
-          sourceMap: true,
-          outputSourceFiles: true,
-          sourceMapURL: '<%= pkg.name %>-theme.css.map',
-          sourceMapFilename: 'dist/css/<%= pkg.name %>-theme.css.map'
-        },
-        src: 'less/theme.less',
-        dest: 'dist/css/<%= pkg.name %>-theme.css'
-      }
-    },
-
     autoprefixer: {      // 自动添加浏览器前缀
       options: {
         browsers: configBridge.config.autoprefixerBrowsers
       },
-      core: {
+      project: {
         options: {
           map: true
         },
-        src: 'dist/css/<%= pkg.name %>.css'
-      },
-      theme: {
-        options: {
-          map: true
-        },
-        src: 'dist/css/<%= pkg.name %>-theme.css'
-      },
-      docs: {
-        src: ['docs/assets/css/src/docs.css']
-      },
-      examples: {
-        expand: true,
-        cwd: 'docs/examples/',
-        src: ['**/*.css'],
-        dest: 'docs/examples/'
+        src: 'project/css/ued.css'
       }
     },
 
@@ -197,161 +89,11 @@ module.exports = function (grunt) {
       options: {
         csslintrc: 'less/.csslintrc'
       },
-      dist: [
-        'dist/css/bootstrap.css',
-        'dist/css/bootstrap-theme.css'
-      ],
-      examples: [
-        'docs/examples/**/*.css'
-      ],
-      docs: {
-        options: {
-          ids: false,
-          'overqualified-elements': false
-        },
-        src: 'docs/assets/css/src/docs.css'
-      }
+      project: [
+        'project/css/*.css'
+      ]
     },
 
-    cssmin: {  // css压缩
-      options: {
-        // TODO: disable `zeroUnits` optimization once clean-css 3.2 is released
-        //    and then simplify the fix for https://github.com/twbs/bootstrap/issues/14837 accordingly
-        compatibility: 'ie8',
-        keepSpecialComments: '*',
-        sourceMap: true,
-        sourceMapInlineSources: true,
-        advanced: false
-      },
-      minifyCore: {
-        src: 'dist/css/<%= pkg.name %>.css',
-        dest: 'dist/css/<%= pkg.name %>.min.css'
-      },
-      minifyTheme: {
-        src: 'dist/css/<%= pkg.name %>-theme.css',
-        dest: 'dist/css/<%= pkg.name %>-theme.min.css'
-      },
-      docs: {
-        src: [
-          'docs/assets/css/ie10-viewport-bug-workaround.css',
-          'docs/assets/css/src/pygments-manni.css',
-          'docs/assets/css/src/docs.css'
-        ],
-        dest: 'docs/assets/css/docs.min.css'
-      }
-    },
-
-    csscomb: {     // css模块合并
-      options: {
-        config: 'less/.csscomb.json'
-      },
-      dist: {
-        expand: true,
-        cwd: 'dist/css/',
-        src: ['*.css', '!*.min.css'],
-        dest: 'dist/css/'
-      },
-      examples: {
-        expand: true,
-        cwd: 'docs/examples/',
-        src: '**/*.css',
-        dest: 'docs/examples/'
-      },
-      docs: {
-        src: 'docs/assets/css/src/docs.css',
-        dest: 'docs/assets/css/src/docs.css'
-      }
-    },
-
-    copy: {       // 拷贝文件
-      fonts: {
-        expand: true,
-        src: 'fonts/**',
-        dest: 'dist/'
-      },
-      docs: {
-        expand: true,
-        cwd: 'dist/',
-        src: [
-          '**/*'
-        ],
-        dest: 'docs/dist/'
-      }
-    },
-
-      connect: {
-      server: {
-        options: {
-          port: 9001,
-          base: '.',
-          keepalive: true    // 解决mac上不能访问网页的问题
-        }
-      }
-    },
-
-    jekyll: {
-      options: {
-        bundleExec: true,
-        config: '_config.yml',
-        incremental: false
-      },
-      docs: {},
-      github: {
-        options: {
-          raw: 'github: true'
-        }
-      }
-    },
-
-    htmlmin: {     // 压缩html
-      dist: {
-        options: {
-          collapseBooleanAttributes: true,
-          collapseWhitespace: true,
-          conservativeCollapse: true,
-          decodeEntities: false,
-          minifyCSS: {
-            compatibility: 'ie8',
-            keepSpecialComments: 0
-          },
-          minifyJS: true,
-          minifyURLs: false,
-          processConditionalComments: true,
-          removeAttributeQuotes: true,
-          removeComments: true,
-          removeOptionalAttributes: true,
-          removeOptionalTags: true,
-          removeRedundantAttributes: true,
-          removeScriptTypeAttributes: true,
-          removeStyleLinkTypeAttributes: true,
-          removeTagWhitespace: false,
-          sortAttributes: true,
-          sortClassName: true
-        },
-        expand: true,
-        cwd: '_gh_pages',
-        dest: '_gh_pages',
-        src: [
-          '**/*.html',
-          '!examples/**/*.html'
-        ]
-      }
-    },
-
-    pug: {
-      options: {
-        pretty: true,
-        data: getLessVarsData
-      },
-      customizerVars: {
-        src: 'docs/_pug/customizer-variables.pug',
-        dest: 'docs/_includes/customizer-variables.html'
-      },
-      customizerNav: {
-        src: 'docs/_pug/customizer-nav.pug',
-        dest: 'docs/_includes/nav/customize.html'
-      }
-    },
 
     htmllint: {   // HTML验证工具
       options: {
@@ -364,56 +106,9 @@ module.exports = function (grunt) {
       src: '_gh_pages/**/*.html'
     },
 
-    watch: {     //
-      src: {
-        files: '<%= jshint.core.src %>',
-        tasks: ['jshint:core', 'qunit', 'concat']
-      },
-      test: {
-        files: '<%= jshint.test.src %>',
-        tasks: ['jshint:test', 'qunit']
-      },
-      less: {
-        files: 'less/**/*.less',
-        tasks: 'less'
-      }
-    },
-
-    'saucelabs-qunit': {    // 单元测试
-      all: {
-        options: {
-          build: process.env.TRAVIS_JOB_ID,
-          throttled: 10,
-          maxRetries: 3,
-          maxPollRetries: 4,
-          urls: ['http://127.0.0.1:3000/js/tests/index.html?hidepassed'],
-          browsers: grunt.file.readYAML('grunt/sauce_browsers.yml')
-        }
-      }
-    },
-
     exec: {
       npmUpdate: {
         command: 'npm update'
-      }
-    },
-
-    compress: {    // 压缩
-      main: {
-        options: {
-          archive: 'bootstrap-<%= pkg.version %>-dist.zip',
-          mode: 'zip',
-          level: 9,
-          pretty: true
-        },
-        files: [
-          {
-            expand: true,
-            cwd: 'dist/',
-            src: ['**'],
-            dest: 'bootstrap-<%= pkg.version %>-dist'
-          }
-        ]
       }
     }
 
@@ -425,7 +120,7 @@ module.exports = function (grunt) {
   require('time-grunt')(grunt);
 
   // Docs HTML validation task
-  grunt.registerTask('validate-html', ['jekyll:docs', 'htmllint']);
+
 
   var runSubset = function (subset) {
     return !process.env.TWBS_TEST || process.env.TWBS_TEST === subset;
@@ -434,70 +129,22 @@ module.exports = function (grunt) {
     return val === undefined || val !== '0';
   };
 
-  // Test task.
-  var testSubtasks = [];
-  // Skip core tests if running a different subset of the test suite
-  if (runSubset('core') &&
-      // Skip core tests if this is a Savage build
-      process.env.TRAVIS_REPO_SLUG !== 'twbs-savage/bootstrap') {
-    testSubtasks = testSubtasks.concat(['dist-css', 'dist-js', 'csslint:dist', 'test-js', 'docs']);
-  }
-  // Skip HTML validation if running a different subset of the test suite
-  if (runSubset('validate-html') &&
-      // Skip HTML5 validator on Travis when [skip validator] is in the commit message
-      isUndefOrNonZero(process.env.TWBS_DO_VALIDATOR)) {
-    testSubtasks.push('validate-html');
-  }
-  // Only run Sauce Labs tests if there's a Sauce access key
-  if (typeof process.env.SAUCE_ACCESS_KEY !== 'undefined' &&
-      // Skip Sauce if running a different subset of the test suite
-      runSubset('sauce-js-unit') &&
-      // Skip Sauce on Travis when [skip sauce] is in the commit message
-      isUndefOrNonZero(process.env.TWBS_DO_SAUCE)) {
-    testSubtasks.push('connect');
-    testSubtasks.push('saucelabs-qunit');
-  }
-  grunt.registerTask('server', ["connect"]);
-  grunt.registerTask('test', testSubtasks);
 
-  grunt.registerTask('test-js', ['jshint:core', 'jshint:test', 'jshint:grunt', 'jscs:core', 'jscs:test', 'jscs:grunt', 'qunit']);
 
-  // JS distribution task.
-  grunt.registerTask('dist-js', ['concat', 'uglify:core', 'commonjs']);
-
-  // CSS distribution task.
-  grunt.registerTask('less-compile', ['less:compileCore', 'less:compileTheme']);
-  grunt.registerTask('dist-css', ['less-compile', 'autoprefixer:core', 'autoprefixer:theme', 'csscomb:dist', 'cssmin:minifyCore', 'cssmin:minifyTheme']);
-
-  // Full distribution task.
-  grunt.registerTask('dist', ['clean:dist', 'dist-css', 'copy:fonts', 'dist-js']);
 
   // Default task.
-  grunt.registerTask('default', ['clean:dist', 'copy:fonts', 'test']);
+
 
   grunt.registerTask('build-glyphicons-data', function () { generateGlyphiconsData.call(this, grunt); });
 
   // task for building customizer
-  grunt.registerTask('build-customizer', ['build-customizer-html', 'build-raw-files']);
-  grunt.registerTask('build-customizer-html', 'pug');
   grunt.registerTask('build-raw-files', 'Add scripts/less files to customizer.', function () {
     var banner = grunt.template.process('<%= banner %>');
     generateRawFiles(grunt, banner);
   });
-
-  grunt.registerTask('commonjs', 'Generate CommonJS entrypoint module in dist dir.', function () {
-    var srcFiles = grunt.config.get('concat.bootstrap.src');
-    var destFilepath = 'dist/js/npm.js';
-    generateCommonJSModule(grunt, srcFiles, destFilepath);
-  });
-
-  // Docs task.
-  grunt.registerTask('docs-css', ['autoprefixer:docs', 'autoprefixer:examples', 'csscomb:docs', 'csscomb:examples', 'cssmin:docs']);
-  grunt.registerTask('lint-docs-css', ['csslint:docs', 'csslint:examples']);
-  grunt.registerTask('docs-js', ['uglify:docsJs', 'uglify:customize']);
-  grunt.registerTask('lint-docs-js', ['jshint:assets', 'jscs:assets']);
-  grunt.registerTask('docs', ['docs-css', 'lint-docs-css', 'docs-js', 'lint-docs-js', 'clean:docs', 'copy:docs', 'build-glyphicons-data', 'build-customizer']);
-  grunt.registerTask('docs-github', ['jekyll:github', 'htmlmin']);
-
-  grunt.registerTask('prep-release', ['dist', 'docs', 'docs-github', 'compress']);
+  grunt.registerTask('default', ['clean:dist', 'copy:fonts']);
+  grunt.registerTask('autoprefixer', ['autoprefixer:project']);
+  grunt.registerTask('test-js', ['jshint:project']);
+  grunt.registerTask('validate-html', [ 'htmllint']);
+  grunt.registerTask('test-css', ['csslint:project']);
 };
