@@ -1,7 +1,7 @@
 {
   "asi"      : true,
   "browser"  : true,
-  "eqeqeq"   : false,
+  "eqeqeq"   : true,
   "eqnull"   : true,
   "es3"      : true,
   "expr"     : true,
@@ -9,7 +9,7 @@
   "latedef"  : true,
   "laxbreak" : true,
   "nonbsp"   : true,
-  "strict"   : true,
+  "strict"   : false,
   "undef"    : true,
-  "unused"   : true
+  "unused"   : false
 }

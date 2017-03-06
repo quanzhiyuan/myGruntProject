@@ -1,0 +1,12 @@
+a {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+.mybox {
+    box-sizing: border-box;
+}
+.mybox {
+    -webkit-transform: translate(50px, 100px);
+    transform: translate(50px, 100px);
+}
