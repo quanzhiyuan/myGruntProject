@@ -1,89 +1,33 @@
 {
-  "name": "bootstrap",
-  "description": "The most popular front-end framework for developing responsive, mobile first projects on the web.",
-  "version": "3.3.7",
-  "keywords": [
-    "css",
-    "less",
-    "mobile-first",
-    "responsive",
-    "front-end",
-    "framework",
-    "web"
-  ],
-  "homepage": "http://getbootstrap.com",
-  "author": "Twitter, Inc.",
-  "scripts": {
-    "change-version": "node grunt/change-version.js",
-    "update-shrinkwrap": "npm shrinkwrap --dev && shx mv ./npm-shrinkwrap.json ./grunt/npm-shrinkwrap.json",
-    "test": "grunt test"
+  "name": "zyquan-test",
+  "version": "1.0.0",
+  "devDependencies": {
+    "autoprefixer": "^6.7.6",
+    "grunt": "~0.4.5",
+    "grunt-browser-sync": "^2.2.0",
+    "grunt-contrib-cssmin": "^2.0.0",
+    "grunt-contrib-jshint": "^0.10.0",
+    "grunt-contrib-nodeunit": "~0.4.1",
+    "grunt-contrib-uglify": "~0.5.0",
+    "grunt-postcss": "^0.8.0"
   },
-  "style": "dist/css/bootstrap.css",
-  "less": "less/bootstrap.less",
-  "main": "./dist/js/npm",
+  "description": "云ERP",
+  "main": "index.html",
+  "directories": {
+    "doc": "doc",
+    "example": "example"
+  },
+  "scripts": {
+    "test": "test"
+  },
   "repository": {
     "type": "git",
-    "url": "https://github.com/twbs/bootstrap.git"
+    "url": "https://git.coding.net/dianyingx007/ik3cloud.git"
   },
-  "bugs": {
-    "url": "https://github.com/twbs/bootstrap/issues"
-  },
-  "license": "MIT",
-  "devDependencies": {
-    "btoa": "~1.1.2",
-    "glob": "~7.0.3",
-    "grunt": "~1.0.1",
-    "grunt-autoprefixer": "~3.0.4",
-    "grunt-contrib-clean": "~1.0.0",
-    "grunt-contrib-compress": "~1.3.0",
-    "grunt-contrib-concat": "~1.0.0",
-    "grunt-contrib-connect": "~1.0.0",
-    "grunt-contrib-copy": "~1.0.0",
-    "grunt-contrib-csslint": "~1.0.0",
-    "grunt-contrib-cssmin": "~1.0.0",
-    "grunt-contrib-htmlmin": "~1.5.0",
-    "grunt-contrib-jshint": "~1.0.0",
-    "grunt-contrib-less": "~1.3.0",
-    "grunt-contrib-pug": "~1.0.0",
-    "grunt-contrib-qunit": "~0.7.0",
-    "grunt-contrib-uglify": "~1.0.0",
-    "grunt-contrib-watch": "~1.0.0",
-    "grunt-csscomb": "~3.1.0",
-    "grunt-exec": "~1.0.0",
-    "grunt-html": "~8.0.1",
-    "grunt-jekyll": "~0.4.4",
-    "grunt-jscs": "~3.0.1",
-    "grunt-saucelabs": "~9.0.0",
-    "load-grunt-tasks": "~3.5.0",
-    "markdown-it": "^7.0.0",
-    "shelljs": "^0.7.0",
-    "shx": "^0.1.2",
-    "time-grunt": "^1.3.0"
-  },
-  "engines": {
-    "node": ">=0.10.1"
-  },
-  "files": [
-    "dist",
-    "fonts",
-    "grunt",
-    "js/*.js",
-    "less/**/*.less",
-    "Gruntfile.js",
-    "LICENSE"
+  "keywords": [
+    "云",
+    "ERP"
   ],
-  "jspm": {
-    "main": "js/bootstrap",
-    "shim": {
-      "js/bootstrap": {
-        "deps": "jquery",
-        "exports": "$"
-      }
-    },
-    "files": [
-      "css",
-      "fonts",
-      "js"
-    ]
-  }
+  "author": "云ERP",
+  "license": "ISC"
 }
