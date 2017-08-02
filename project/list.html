@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <title>Document</title>
+ <link rel="stylesheet" type="text/css" href="/CSS/eas.css">
+ <link rel="stylesheet" type="text/css" href="">
+ <style type="text/css">
+    html{
+      font-size: 100px;
+    }
+    body{
+      margin: 0;
+      font-size: 0.12rem;
+    }
+   img{
+    width: 100%;
+    text-align: center;
+   }
+   header{
+   	width: 100%;
+   	background-color: #00a0ea;
+   	height: 0.48rem;
+   }
+   header>img{
+   	position: absolute;
+   	width: 0.17rem;
+   	height: 0.17rem;
+   }
+   header>:first-child{
+   	left: 0.21rem;
+   	top: 0.15rem;
+   }
+   header>:nth-child(2){
+   text-align: center;
+   color: #ffffff;
+   line-height: 0.48rem;
+   font-size: 0.18rem;
+   }
+    header>:nth-child(3){
+   	right: 0.15rem;
+   	top: 0.15rem;
+   	z-index: 10;
+   }
+
+   .clearfix{
+   }
+   .clearfix:after{
+    content: " ";
+    clear: both;
+    display: table;
+   }
+   .clearfix:before{
+    content: " ";
+    display: table;
+   }
+   .bg-eas{
+    width: 3.75rem;
+  	min-height: 8.17rem;
+  	background: url(/Imgs/index.png) rgba(109,122,252,1);
+  	background-position: 0 0; 
+  	background-repeat: no-repeat;
+  	background-size: 100% auto;
+    z-index: 10;
+   }
+   .index-container{
+      padding: 0.09rem 0.03rem 0.57rem 0.03rem;
+      
+   }
+   .index-container * {
+   }
+   .banner{
+    display: block;
+    width: 100%;
+   }
+   .banner2{
+    position: fixed;
+    width: 100%;
+    bottom: 0
+   }
+   .allmenu{
+   	width: 3.40rem;
+   	background-color: rgba(102,214,227,0.5);
+   	border-radius: 0.09rem;
+   	padding: 0.03rem 0.14rem 0.22rem 0.14rem;
+   	margin-bottom: 0.06rem;
+   }
+   .allmenu-block{
+   	  position: absolute;
+   	  right: 0.04rem;
+   	  top: 0.10rem;
+   		background-color: rgba(102,214,227,0.5);;
+   		height: 50px;
+   		width: 0.37rem;
+   		border-top-right-radius: 0.09rem;
+   		border-top-left-radius: 0.09rem;
+   }
+   .allmenu>span{
+   		background-color: #32bfe5;
+   		display: inline-block;
+   		height: 0.21rem;
+   		width: 0.92rem;
+   		color: #ffffff;
+   		border-radius: 0.09rem;
+   		text-align: center;
+   		font-size: 0.12rem;
+   		line-height: 0.21rem;
+   		margin-left: 0.28rem;
+   		margin-top: 0.19rem;
+   }
+   .allmenu>span:hover{
+   	cursor: pointer;
+   }
+   .listcard{
+   	padding: 0.04rem;
+   	width: 3.60rem;
+   	height: 2.07rem;
+   	background-color: #ffffff;
+   	border-radius: 0.09rem;
+   	color: #595757;
+   	font-size: 0.14rem;
+   	margin-bottom: 0.06rem;
+   }
+   .listcard>img{
+   	display: block;
+   }
+   .listcard>span{
+   	line-height: 0.48rem;
+   }
+ </style>
+</head>
+<body>
+  <div class="bg-eas">
+  <header><img class="indexicon" src="/Imgs/indexicon.png"><div>综合集团</div> <img src="/Imgs/down.png"></header>
+  <div class="index-container">
+  <div class="allmenu">
+    <div class="allmenu-block" ></div>
+  	<span style="margin-left: 0">建筑与房地产</span>
+  	<span>建筑与房地产</span>
+  	<span>建筑与房地产</span>
+  	<span style="margin-left: 0">建筑与房地产</span>
+  	<span>建筑与房地产</span>
+  	<span>建筑与房地产</span>
+  </div>
+  <div class="listcard">
+  	<img src="/Imgs/list1.png">
+  	<span>华菱集团</span> | <span>“1+5”战略下的财务管理转型</span>
+  </div>
+   <img class="banner2" src="/Imgs/banner2.png">
+  </div>
+</body>
+<script type="text/javascript" src="/JS/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="/JS/vue.min.js"></script>
+<script type="text/javascript">
+  $(document).ready(function(){
+    document.documentElement.style.fontSize = window.innerWidth/3.75 + 'px'
+  });
+</script>
+</html>

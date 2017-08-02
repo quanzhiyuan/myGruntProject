@@ -38,13 +38,18 @@
     background-size: 100% auto;
    }
    .index-container{
-      padding: 0.24rem 0.21rem;
+      padding: 0.21rem 0.21rem;
    }
    .index-container * {
    }
    .banner{
     display: block;
     width: 100%;
+   }
+   .banner2{
+    position: fixed;
+    width: 100%;
+    bottom: 0
    }
    .eas-cases{
    }
@@ -53,7 +58,7 @@
       margin-left: 0.075rem;
       margin-bottom: 0.075rem;
       width: 1.05rem;
-      height: 0.82rem;
+      height: 0.83rem;
       position: relative;
       color: #00a0e9;
       font-size: 0.1rem;
@@ -61,6 +66,7 @@
    .eas-caseCard>img{
     width: 100%;
     height: 100%;
+    border-radius: 0.09rem;
    }
    .eas-caseCard>div{
     position: absolute;
@@ -82,53 +88,43 @@
      width: 100%;
    }
    .eas-video{
-      width: 3.33rem;
-      height: 1.875rem; 
+      width: 333px;
+      height: 187.5px;
    }
    .eas-video>video{
+   }
+   .case-declaration{
+    margin-top: 0.3rem;
+      font-size: 0.12rem;
+      color: #ffffff;
    }
  </style>
 </head>
 <body>
-  <div class="bg-eas">
+  <div id="index" class="bg-eas">
   <div class="index-container">
-    <img class="banner" src="/Imgs/banner.png">
-    <img style="width:226px;display: block;margin:0.19rem auto 0.14rem;"; src="/Imgs/case.png">
+    <img class="banner" :src="bannerUrl">
+    <img style="width:226px;display: block;margin:0.14rem auto;" src="/Imgs/case.png">
     <div class="eas-cases clearfix">
-      <div class="eas-caseCard" style="margin-left: 0;">
-        <img src="/Imgs/internet.png">
-        <div>综合集团</div>
-      </div>
-       <div class="eas-caseCard">
-        <img src="/Imgs/internet.png">
-        <div>综合集团</div>
-      </div>
-       <div class="eas-caseCard">
-        <img src="/Imgs/internet.png">
-        <div>综合集团</div>
-      </div>
-      <div class="eas-caseCard" style="margin-left: 0;">
-        <img src="/Imgs/internet.png">
-        <div>综合集团</div>
+      <div v-for="(item,key) in classification" class="eas-caseCard" :style="key%3==0?'margin-left:0px;':''">
+        <img :src="item.logo">
+        <div>{{item.name}}</div>
       </div>
       <div class="eas-placeholder">
         <img src="/Imgs/placeholder.png">
       </div>
     </div>
+    <img style="width:226px;display: block;margin:0.15rem auto 0.15rem auto;" src="/Imgs/case.png">
     <div class="eas-video">
-       <img style="width:226px;display: block;margin:0.15rem auto 0.15rem auto;" src="/Imgs/case.png">
        <video width="333px" height="187.5px">
         <source  src="http://yunzhijia.com/home/video/wangshi_detail_new.mp4" type="audio/mp4">
         你的浏览器不支持该视频格式
        </video>
     </div>
+    <div class="case-declaration">*案例最终解释权归金蝶EAS所有</div>
   </div>
+   <img class="banner2" src="/Imgs/banner2.png">
   </div>
 </body>
-<script type="text/javascript" src="/JS/jquery-3.2.1.min.js"></script>
-<script type="text/javascript">
-  $(document).ready(function(){
-    document.documentElement.style.fontSize = window.innerWidth/3.75 + 'px'
-  });
-</script>
+<script type="text/javascript" defer async="true" src="/JS/require.js" data-main="JS/index"></script>
 </html>

@@ -1,0 +1,30 @@
+{
+	"companyList": {
+		"综合集团":["今麦郎日清食品有限公司"],
+		"建筑与房地产":["万科企业股份有限公司","合生创展集团有限公司","上海宝龙集团"],
+		"制造业":["泉州安通物流有限公司"],
+		"零售与流通":["甘肃国芳工贸集团"]
+	},
+	"companyInfo": {
+		"今麦郎日清食品有限公司":{
+			"brief":"",
+			"intro":"",
+			"file":"",
+			"envir":"",
+			"take_cloud":"",
+			"customer_say":"",
+			"picture": ""
+		}
+	},		
+	"classification": [
+		{"name": "综合集团", "logo": "/Imgs/internet.png"},
+		{"name": "建筑与房地产", "logo": "/Imgs/internet.png"},
+		{"name": "制造业", "logo": "/Imgs/internet.png"},
+		{"name": "零售与流通", "logo": "/Imgs/internet.png"}
+	],
+	"homeShow": {
+		"img": "/Imgs/banner.png",
+		"placeholder":"",
+		"video": ""
+	}
+}
